@@ -1,0 +1,80 @@
+/*FADI Scores*/
+/* fadi_count=26 - NMISS(fadi_1,fadi_2,fadi_3,fadi_4,fadi_5,fadi_6,fadi_7,fadi_8,fadi_9,*/
+/*    fadi_10,fadi_11,fadi_12,fadi_13,fadi_14,fadi_15,fadi_16,fadi_17,fadi_18,fadi_19,fadi_20,fadi_21,fadi_22,fadi_23,fadi_24,fadi_25,fadi_26);*/
+/* fadi_mean=MEAN(fadi_1,fadi_2,fadi_3,fadi_4,fadi_5,fadi_6,fadi_7,fadi_8,fadi_9,fadi_10,*/
+/*    fadi_11,fadi_12,fadi_13,fadi_14,fadi_15,fadi_16,fadi_17,fadi_18,fadi_19,fadi_20,fadi_21,fadi_22,fadi_23,fadi_24,fadi_25,fadi_26);*/
+/* fadi_total=fadi_count * fadi_mean;*/
+/* fadi_index=(fadi_total)/(4*fadi_count);*/
+
+/*SMFA*/
+smfa_function_count = 34-NMISS(smfa_1,smfa_2,smfa_3,smfa_4,smfa_5,smfa_6,smfa_7,smfa_8,smfa_9,smfa_10,smfa_11,smfa_12,smfa_13,smfa_14,smfa_15,smfa_16,smfa_17,
+  smfa_18,smfa_19,smfa_20,smfa_21,smfa_22,smfa_23,smfa_24,smfa_25,smfa_26,smfa_27,smfa_28,smfa_29,smfa_30,smfa_31,smfa_32,smfa_33,smfa_34);
+smfa_function_mean = MEAN(smfa_1,smfa_2,smfa_3,smfa_4,smfa_5,smfa_6,smfa_7,smfa_8,smfa_9,smfa_10,smfa_11,smfa_12,smfa_13,smfa_14,smfa_15,
+  smfa_16,smfa_17,smfa_18,smfa_19,smfa_20,smfa_21,smfa_22,smfa_23,smfa_24,smfa_25,smfa_26,smfa_27,smfa_28,smfa_29,smfa_30,smfa_31,smfa_32,smfa_33,smfa_34);
+smfa_function_total = smfa_function_count*smfa_function_mean;
+smfa_function_index=((smfa_function_total-34)/136) * 100;
+/*this line of code was missing erik 12/11/15*/
+smfa_function_index_v2=smfa_function_index;
+/*verify this with Jeff*/
+if smfa_function_index < 0 then
+  smfa_function_index_v2 = .;
+drop smfa_function_index ;
+rename smfa_function_index_v2 = smfa_function_index;
+
+/*SMFA Bother calculations*/
+smfa_bother_count=12-NMISS(smfa_35,smfa_36,smfa_37,smfa_38,smfa_39,smfa_40,smfa_41,smfa_42,smfa_43,smfa_44,smfa_45,smfa_46);
+smfa_bother_mean=MEAN(smfa_35,smfa_36,smfa_37,smfa_38,smfa_39,smfa_40,smfa_41,smfa_42,smfa_43,smfa_44,smfa_45,smfa_46);
+smfa_bother_total=smfa_bother_count*smfa_bother_mean;
+smfa_bother_index=((smfa_bother_total-12)/48)*100;
+smfa_bother_index_v2=smfa_bother_index;
+if smfa_bother_index < 0 then
+  smfa_bother_index_v2= .;
+drop smfa_bother_index;
+rename smfa_bother_index_v2 = smfa_bother_index;
+
+/*SF36*/
+sf36_body_pain = (((sf36_7+sf36_8)-2)/10)*100;
+if sf36_7 = 6 and sf36_8 = 0 then sf36_body_pain = (((sf36_7+6)-2)/10)*100;
+if sf36_7 ne 6 and sf36_8 = 0 then sf36_body_pain = (((sf36_7+5)-2)/10)*100;
+sf36_general_health = .;
+if sf36_1 = 1 then sf36_general_health = (((5 + sf36_11a + sf36_11b + sf36_11c + sf36_11d)-5)/20) * 100;
+if sf36_1 = 2 then sf36_general_health = (((4.4 + sf36_11a + sf36_11b + sf36_11c + sf36_11d)-5)/20) * 100;
+if sf36_1 = 3 then sf36_general_health = (((3.4 + sf36_11a + sf36_11b + sf36_11c + sf36_11d)-5)/20) * 100;
+if sf36_1 = 4 then sf36_general_health = (((2 + sf36_11a + sf36_11b + sf36_11c + sf36_11d)-5)/20) * 100;
+if sf36_1 = 5 then sf36_general_health = (((1 + sf36_11a + sf36_11b + sf36_11c + sf36_11d)-5)/20) * 100;
+
+sf36_mental_health = (((sf36_9b + sf36_9c + sf36_9d + sf36_9f + sf36_9h)-5)/25) * 100;
+
+sf36_physical_function = (((sf36_3a + sf36_3b + sf36_3c + sf36_3d + sf36_3e + sf36_3f + sf36_3g + sf36_3h + sf36_3i + sf36_3j)-10)/20) * 100;
+
+sf36_role_emotional = (((sf36_5a + sf36_5b + sf36_5c)-3)/3) * 100;
+
+sf36_role_physical = (((sf36_4a + sf36_4b + sf36_4c + sf36_4d)-4)/4) * 100;
+
+sf36_social_function = (((sf36_6 + sf36_10)-2)/8) * 100;
+
+sf36_vitality = (((sf36_9a + sf36_9e + sf36_9g + sf36_9i)-4)/20) * 100;
+
+sf36_reported_health = .;
+if sf36_2 = 1 then sf36_reported_health = 2.;
+if sf36_2 = 2 then sf36_reported_health = 1;
+if sf36_2 = 3 then sf36_reported_health = 0;
+if sf36_2 = 4 then sf36_reported_health = -1;
+if sf36_2 = 5 then sf36_reported_health = -2;
+
+sf36_physical_health_dimension = (sf36_body_pain + sf36_general_health + sf36_physical_function + sf36_role_physical + sf36_vitality)/5;
+sf36_mental_health_dimension = (sf36_general_health + sf36_mental_health + sf36_role_emotional + sf36_social_function + sf36_vitality)/5;
+sf36_total_score = (sf36_body_pain + sf36_general_health + sf36_mental_health + sf36_physical_function + sf36_role_emotional + sf36_role_physical + sf36_social_function + sf36_vitality)/8;
+
+/*AOFAS*/
+aofas_hfoot =  aofas_1 + aofas_2 + aofas_3 + aofas_4 + aofas_5 + aofas_6 + aofas_7 + aofas_8 + aofas_9;
+aofas_hfoot_pain = aofas_1;
+aofas_hfoot_function = aofas_2 + aofas_3 + aofas_4 + aofas_5 + aofas_6 + aofas_7 + aofas_8;
+aofas_hfoot_alignment =  aofas_9;
+
+/*FAOS*/
+/*faos_pain = 100 - (((faos_p1 + faos_p2 + faos_p3 + faos_p4 + faos_p5 + faos_p6 + faos_p7 + faos_p8 + faos_p9)*100) / 36);*/
+/*faos_symptoms = 100 - (((faos_s1 + faos_s2 + faos_s3 + faos_s4 + faos_s5 + faos_s6 + faos_s7)*100) / 28);*/
+/*faos_adl = 100 - (((faos_a1+faos_a2+faos_a3+faos_a4+faos_a5+faos_a6+faos_a7+faos_a8+faos_a9+faos_a10+faos_a11+faos_a12+faos_a13+faos_a14+faos_a15+faos_a16+faos_a17)*100) / 68);*/
+/*faos_spandrecpain = 100 - (((faos_sp1 + faos_sp2 + faos_sp3 + faos_sp4 + faos_sp5)*100) / 20);*/
+/*faos_qol = 100 - (((faos_q1 + faos_q2 + faos_q3 + faos_q4)*100) / 20);*/
